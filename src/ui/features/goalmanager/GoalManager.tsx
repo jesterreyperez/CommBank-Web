@@ -49,6 +49,14 @@ export function GoalManager(props: Props) {
     event.stopPropagation()
     setIcon(emoji.native)
     setEmojiPickerIsOpen(false)
+
+    const updatedGoal: Goal = {
+      ...props.goal,
+      icon: emoji.native ?? props.goal.icon,
+      name: name ?? props.goal.name,
+      targetDate: targetDate ?? props.goal.targetDate,
+      targetAmount: targetAmount ?? props.goal.targetAmount,
+    }
   }
 
   const updateNameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
