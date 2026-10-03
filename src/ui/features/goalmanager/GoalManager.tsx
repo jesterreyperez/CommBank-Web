@@ -48,6 +48,7 @@ export function GoalManager(props: Props) {
   const pickEmojiOnClick = (emoji: BaseEmoji, event: React.MouseEvent) => {
     event.stopPropagation()
     setIcon(emoji.native)
+    setEmojiPickerIsOpen(false)
   }
 
   const updateNameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
