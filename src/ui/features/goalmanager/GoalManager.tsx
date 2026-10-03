@@ -10,6 +10,7 @@ import { Goal } from '../../../api/types'
 import { selectGoalsMap, updateGoal as updateGoalRedux } from '../../../store/goalsSlice'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import DatePicker from '../../components/DatePicker'
+import EmojiPicker from '../../components/EmojiPicker'
 import { Theme } from '../../components/Theme'
 
 type Props = { goal: Goal }
@@ -21,21 +22,27 @@ export function GoalManager(props: Props) {
   const [name, setName] = useState<string | null>(null)
   const [targetDate, setTargetDate] = useState<Date | null>(null)
   const [targetAmount, setTargetAmount] = useState<number | null>(null)
+  const [emojiPickerIsOpen, setEmojiPickerIsOpen] = useState(false)
+  const [icon, setIcon] = useState<string | null>(null)
 
   useEffect(() => {
-    setName(props.goal.name)
-    setTargetDate(props.goal.targetDate)
-    setTargetAmount(props.goal.targetAmount)
-  }, [
-    props.goal.id,
-    props.goal.name,
-    props.goal.targetDate,
-    props.goal.targetAmount,
-  ])
-
+  setName(props.goal.name)
+  setTargetDate(props.goal.targetDate)
+  setTargetAmount(props.goal.targetAmount)
+  setIcon(props.goal.icon)
+}, [
+  props.goal.id,
+  props.goal.name,
+  props.goal.targetDate,
+  props.goal.targetAmount,
+  props.goal.icon,
+])
+  
   useEffect(() => {
     setName(goal.name)
   }, [goal.name])
+
+const hasIcon = () => icon != null
 
   const updateNameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nextName = event.target.value
@@ -182,3 +189,9 @@ const StringInput = styled.input`
 const Value = styled.div`
   margin-left: 2rem;
 `
+
+const EmojiPickerContainer = styled.div<EmojiPickerContainerProps>`
+  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
+  position: absolute;
+  top: ${(props) => (props.hasIcon ? '10rem' : '2rem')};
+  left: 0;
