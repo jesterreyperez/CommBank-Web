@@ -13,6 +13,7 @@ import DatePicker from '../../components/DatePicker'
 import { BaseEmoji } from 'emoji-mart'
 import EmojiPicker from '../../components/EmojiPicker'
 import { Theme } from '../../components/Theme'
+import AddIconButton from './AddIconButton'
 
 type Props = { goal: Goal }
 export function GoalManager(props: Props) {
@@ -132,7 +133,13 @@ export function GoalManager(props: Props) {
         </Value>
       </Group>
 
-      <EmojiPickerContainer isOpen={emojiPickerIsOpen} hasIcon={hasIcon()}>
+      <AddIconButton hasIcon={hasIcon()} onClick={() => setEmojiPickerIsOpen(true)} />
+
+      <EmojiPickerContainer
+        isOpen={emojiPickerIsOpen}
+        hasIcon={hasIcon()}
+        onClick={(event) => event.stopPropagation()}
+      >
         <EmojiPicker onClick={pickEmojiOnClick} />
       </EmojiPickerContainer>
     </GoalManagerContainer>
