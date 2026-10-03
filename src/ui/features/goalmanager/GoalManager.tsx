@@ -10,6 +10,7 @@ import { Goal } from '../../../api/types'
 import { selectGoalsMap, updateGoal as updateGoalRedux } from '../../../store/goalsSlice'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import DatePicker from '../../components/DatePicker'
+import { BaseEmoji } from 'emoji-mart'
 import EmojiPicker from '../../components/EmojiPicker'
 import { Theme } from '../../components/Theme'
 
@@ -43,6 +44,10 @@ export function GoalManager(props: Props) {
   }, [goal.name])
 
 const hasIcon = () => icon != null
+
+const pickEmojiOnClick = (emoji: BaseEmoji, event: React.MouseEvent) => {
+  event.stopPropagation()
+}
 
   const updateNameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nextName = event.target.value
@@ -113,6 +118,13 @@ const hasIcon = () => icon != null
           <StringValue>{new Date(props.goal.created).toLocaleDateString()}</StringValue>
         </Value>
       </Group>
+
+      <EmojiPickerContainer
+  isOpen={emojiPickerIsOpen}
+  hasIcon={hasIcon()}
+>
+  <EmojiPicker onClick={pickEmojiOnClick} />
+</EmojiPickerContainer>
     </GoalManagerContainer>
   )
 }
