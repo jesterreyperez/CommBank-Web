@@ -27,27 +27,28 @@ export function GoalManager(props: Props) {
   const [icon, setIcon] = useState<string | null>(null)
 
   useEffect(() => {
-  setName(props.goal.name)
-  setTargetDate(props.goal.targetDate)
-  setTargetAmount(props.goal.targetAmount)
-  setIcon(props.goal.icon)
-}, [
-  props.goal.id,
-  props.goal.name,
-  props.goal.targetDate,
-  props.goal.targetAmount,
-  props.goal.icon,
-])
-  
+    setName(props.goal.name)
+    setTargetDate(props.goal.targetDate)
+    setTargetAmount(props.goal.targetAmount)
+    setIcon(props.goal.icon)
+  }, [
+    props.goal.id,
+    props.goal.name,
+    props.goal.targetDate,
+    props.goal.targetAmount,
+    props.goal.icon,
+  ])
+
   useEffect(() => {
     setName(goal.name)
   }, [goal.name])
 
-const hasIcon = () => icon != null
+  const hasIcon = () => icon != null
 
-const pickEmojiOnClick = (emoji: BaseEmoji, event: React.MouseEvent) => {
-  event.stopPropagation()
-}
+  const pickEmojiOnClick = (emoji: BaseEmoji, event: React.MouseEvent) => {
+    event.stopPropagation()
+    setIcon(emoji.native)
+  }
 
   const updateNameOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nextName = event.target.value
@@ -119,12 +120,9 @@ const pickEmojiOnClick = (emoji: BaseEmoji, event: React.MouseEvent) => {
         </Value>
       </Group>
 
-      <EmojiPickerContainer
-  isOpen={emojiPickerIsOpen}
-  hasIcon={hasIcon()}
->
-  <EmojiPicker onClick={pickEmojiOnClick} />
-</EmojiPickerContainer>
+      <EmojiPickerContainer isOpen={emojiPickerIsOpen} hasIcon={hasIcon()}>
+        <EmojiPicker onClick={pickEmojiOnClick} />
+      </EmojiPickerContainer>
     </GoalManagerContainer>
   )
 }
@@ -207,3 +205,4 @@ const EmojiPickerContainer = styled.div<EmojiPickerContainerProps>`
   position: absolute;
   top: ${(props) => (props.hasIcon ? '10rem' : '2rem')};
   left: 0;
+`
