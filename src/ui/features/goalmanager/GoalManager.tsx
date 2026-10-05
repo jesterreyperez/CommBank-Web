@@ -226,3 +226,7 @@ const EmojiPickerContainer = styled.div<EmojiPickerContainerProps>`
   top: ${(props) => (props.hasIcon ? '10rem' : '2rem')};
   left: 0;
 `
+
+const GoalIconContainer = styled.div<GoalIconContainerProps>`
+  display: ${(props) => (props.shouldShow ? 'flex' : 'none')};
+`
