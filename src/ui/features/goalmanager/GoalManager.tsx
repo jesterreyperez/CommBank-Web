@@ -47,6 +47,11 @@ export function GoalManager(props: Props) {
 
   const hasIcon = () => icon != null
 
+  const addIconOnClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    setEmojiPickerIsOpen(true)
+  }
+
   const pickEmojiOnClick = (emoji: BaseEmoji, event: React.MouseEvent) => {
     event.stopPropagation()
     setIcon(emoji.native)
@@ -134,7 +139,11 @@ export function GoalManager(props: Props) {
         </Value>
       </Group>
 
-      <AddIconButton hasIcon={hasIcon()} onClick={() => setEmojiPickerIsOpen(true)} />
+      <AddIconButton hasIcon={hasIcon()} onClick={addIconOnClick} />
+
+      <GoalIconContainer shouldShow={hasIcon()}>
+        <GoalIcon icon={goal.icon} onClick={addIconOnClick} />
+      </GoalIconContainer>
 
       <EmojiPickerContainer
         isOpen={emojiPickerIsOpen}
